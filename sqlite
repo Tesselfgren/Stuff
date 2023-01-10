@@ -1,0 +1,30 @@
+INSERT INTO Orders (OrderNumber, CustomerNumber, CustomerName, CustomerCountry, CustomerContactPerson, SalesRep, CustomerOrg, CustomerVAT,  OrderDate, Ean, Price, OrderValue)
+VALUES
+(248, 29, 'Holmgren & Axelsson HB', 'Sweden', 'qenglund@example.net', 'Göte Johansson', '132564-0918', 'SE16132564091801', '2020-06-04', '7350909371408', 84663.98, 186219.71)
+
+SELECT * FROM Orders WHERE NOT CustomerNumber= 248
+UPDATE Orders SET SalesRep= "Veronica Nordström" Where SalesRep = "Veronica Nördström"
+SELECT * FROM Orders WHERE CustomerCountry IS NULL;
+DELETE FROM Orders WHERE ROWID = 1277
+SELECT AVG(OrderNumber) FROM Orders;
+SELECT SUM(OrderValue) FROM Orders;
+SELECT * from Orders WHERE SalesRep="Harry Höglund" AND OrderDate like '2022%'
+SELECT * from Orders WHERE SalesRep="Harry Höglund" OR SalesRep like 'Eva%'
+SELECT * from Orders WHERE NOT CustomerContactPerson like '%@example.com'
+SELECT * from Orders WHERE (SalesRep like "Harry%" OR SalesRep like "Eva%") AND OrderValue > 300000;
+SELECT DISTINCT OrderNumber FROM Orders where OrderValue > 300000;
+SELECT DISTINCT SalesRep FROM Orders;
+SELECT count(DISTINCT Ean) FROM Orders;
+SELECT MAX(Ean),Price FROM Orders;
+SELECT DISTINCT Ean,Price FROM orders ORDER BY Price DESC limit 5;
+SELECT DISTINCT Ean,Price FROM orders ORDER BY Price ASC limit 5;
+SELECT COUNT(Ean)
+FROM Orders
+GROUP BY Ean
+ORDER BY COUNT(Price) DESC;
+
+SELECT COUNT(Ean), Ean  FROM Orders GROUP BY Ean ORDER BY count(Ean) DESC limit 5;
+SELECT ean, sum(price) as ProductSales FROM Orders GROUP BY Ean ORDER BY ProductSales DESC limit 5;
+SELECT * from Orders WHERE NOT CustomerContactPerson like '%@%.%'
+SELECT * from Orders WHERE NOT CustomerVAT like "SE%01"
+SELECT OrderValue, sum(price) as Summa from orders group by OrderNumber having abs(OrderValue - Summa) >0.1 
